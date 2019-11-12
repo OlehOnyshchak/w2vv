@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ROOTPATH=$HOME/VisualSearch
 mkdir -p $ROOTPATH && cd $ROOTPATH
 

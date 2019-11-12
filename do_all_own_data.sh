@@ -1,3 +1,5 @@
+#!/bin/sh
+
 trainCollection=$1
 valCollection=$2
 testCollection=$3
@@ -11,7 +13,7 @@ overwrite=0
 
 
 # training
-python w2vv_trainer.py $trainCollection $valCollection  $testCollection --overwrite $overwrite --img_feature $img_feature --n_caption $n_caption
+python2 w2vv_trainer.py $trainCollection $valCollection  $testCollection --overwrite $overwrite --img_feature $img_feature --n_caption $n_caption
 
 
 # evaluation (Notice that a script file do_test_${testCollection}.sh will be automatically generated when the training process ends.)
