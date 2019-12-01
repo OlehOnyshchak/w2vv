@@ -36,8 +36,8 @@ def process(option, trainCollection, valCollection, testCollection):
     opt.weight_name = option.weight_name
 
     model_path_1, model_path_2 = option.model_path.strip().split('/'+trainCollection+'/')
-    model_path = os.path.join(model_path_1, testCollection, 'results', trainCollection, model_path_2)
-    model_path = model_path.replace('/%s/'%opt.checkpoint, '/')
+    model_hash = model_path_2.split('train_results/')[1].split('/')[0]
+    model_path = os.path.join(model_path_1, testCollection, 'results', model_hash)
     output_dir = os.path.join(model_path, option.weight_name)
     
     result_perf = os.path.join(output_dir, 'perf.txt')
