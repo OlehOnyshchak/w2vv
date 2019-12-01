@@ -34,10 +34,6 @@ def process(option, trainCollection, valCollection, testCollection):
     opt.n_caption = option.n_caption
     opt.model_path = option.model_path
     opt.weight_name = option.weight_name
-    
-    # result file info
-    assert trainCollection in option.model_path
-    assert valCollection in option.model_path
 
     model_path_1, model_path_2 = option.model_path.strip().split('/'+trainCollection+'/')
     model_path = os.path.join(model_path_1, testCollection, 'results', trainCollection, model_path_2)
