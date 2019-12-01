@@ -4,6 +4,7 @@ import time
 import json
 import random
 import numpy as np
+import hashlib
 
 from basic.constant import *
 from basic.metric import getScorer
@@ -76,8 +77,9 @@ def process(opt, trainCollection, valCollection, testCollection):
         (opt.clipnorm, opt.lr, opt.dropout, opt.l2_p, opt.loss_fun, opt.batch_size)
     model_style =  "-".join(map(str, opt.n_text_layers)) + '_' + opt.hidden_act + '_' + opt.simi_fun
 
-    checkpoint_dir = os.path.join(rootpath, trainCollection, opt.checkpoint, 'w2vv', valCollection, 
-        train_style, opt.text_style + '_' + text_name, opt.img_feature, optm_style, model_style, opt.postfix)
+    model_id = "".join([opt.checkpoint, 'w2vv', valCollection, 
+        train_style, opt.text_style + '_' + text_name, opt.img_feature, optm_style, model_style, opt.postfix])
+    checkpoint_dir = os.path.join(rootpath, trainCollection, "train_results", hashlib.sha1(model_id).hexdigest())
 
     # output visualization script
     runfile_vis = 'do_visual.sh'
@@ -169,7 +171,6 @@ def process(opt, trainCollection, valCollection, testCollection):
         train_progbar = generic_utils.Progbar(trainData.datasize)
         trainBatchIter = trainData.getBatchData()
         for minibatch_index in xrange(trainData.max_batch_size):
-        # for minibatch_index in xrange(10):
             n_step += 1
             img_X_batch, text_X_batch = trainBatchIter.next()
             loss_batch = model.model.train_on_batch(text_X_batch, img_X_batch)
