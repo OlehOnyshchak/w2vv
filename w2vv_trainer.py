@@ -13,7 +13,8 @@ from basic.common import makedirsforfile, checkToSkip, writePkl
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.3
+config.gpu_options.per_process_gpu_memory_fraction = 0.95
+config.gpu_options.allow_growth = True
 set_session(tf.Session(config=config))
 
 from keras.utils import generic_utils
@@ -54,7 +55,7 @@ def process(opt, trainCollection, valCollection, testCollection):
     opt.n_text_layers = map(int, opt.n_text_layers.strip().split('-'))
 
     if opt.init_model_from != '':
-        assert opt.img_feature in opt.init_model_from
+        # assert opt.img_feature in opt.init_model_from # obsolete check
         init_model_name = opt.init_model_from.strip().split("/")[-1]
         train_style = opt.model_name + "_" +  INFO + "_ft_" + init_model_name
     else:
