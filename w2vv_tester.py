@@ -11,7 +11,8 @@ from basic.common import makedirsforfile, checkToSkip, readPkl, writePkl
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.3
+config.gpu_options.per_process_gpu_memory_fraction = 1.0
+config.gpu_options.allow_growth = True
 set_session(tf.Session(config=config))
 
 from keras.utils import generic_utils
