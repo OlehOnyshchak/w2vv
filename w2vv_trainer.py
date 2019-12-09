@@ -55,7 +55,6 @@ def process(opt, trainCollection, valCollection, testCollection):
     opt.n_text_layers = map(int, opt.n_text_layers.strip().split('-'))
 
     if opt.init_model_from != '':
-        # assert opt.img_feature in opt.init_model_from # obsolete check
         init_model_name = opt.init_model_from.strip().split("/")[-1]
         train_style = opt.model_name + "_" +  INFO + "_ft_" + init_model_name
     else:
